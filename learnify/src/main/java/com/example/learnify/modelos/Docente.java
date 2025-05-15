@@ -1,8 +1,25 @@
 package com.example.learnify.modelos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "docentes")
 public class Docente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_docente")
     private Integer idDocente;
+
+    @Column(name = "especialidad", length = 100, unique = false, nullable = false)
     private String especialidad;
+
+    //creando la relacion (uno a muchos)
+    @OneToMany(mappedBy = "docente")
+    @JsonManagedReference
+    private List<Curso> cursos;
 
     public Docente() {
     }

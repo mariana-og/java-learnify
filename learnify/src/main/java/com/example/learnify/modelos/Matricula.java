@@ -1,17 +1,29 @@
 package com.example.learnify.modelos;
 
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "matriculas")
 public class Matricula {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_matricula")
     private Integer idMateria;
-    private Timestamp FechaRegistro;
+
+
+    @CreationTimestamp
+    @Column(name = "fecha_matricula", updatable = false)
+    private Timestamp FechaMatricula;
 
     public Matricula() {
     }
 
-    public Matricula(Integer idMateria, Timestamp fechaRegistro) {
+    public Matricula(Integer idMateria, Timestamp fechaMatricula) {
         this.idMateria = idMateria;
-        FechaRegistro = fechaRegistro;
+        FechaMatricula = fechaMatricula;
     }
 
     public Integer getIdMateria() {
@@ -22,11 +34,11 @@ public class Matricula {
         this.idMateria = idMateria;
     }
 
-    public Timestamp getFechaRegistro() {
-        return FechaRegistro;
+    public Timestamp getFechaMatricula() {
+        return FechaMatricula;
     }
 
-    public void setFechaRegistro(Timestamp fechaRegistro) {
-        FechaRegistro = fechaRegistro;
+    public void setFechaMatricula(Timestamp fechaMatricula) {
+        FechaMatricula = fechaMatricula;
     }
 }

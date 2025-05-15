@@ -1,19 +1,45 @@
 package com.example.learnify.modelos;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Table(name = "estudiantes")
 public class Estudiante {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_estudiante")
     private Integer  idEstudiante;
-    private Integer calificación;
+
+    @Column(name = "grado", nullable = false)
+    private Integer grado;
+
+    @Column(name = "fecha_nacimiento", nullable = false)
     private Date FechaNacimiento;
+
+    @Column(name = "dirección", length = 255, nullable = false)
     private String direccion;
+
+
+    @OneToMany(mappedBy = "estudiante")
+    @JsonManagedReference
+    private List<Asistencia>asistencias;
+
+    @OneToMany(mappedBy = "estudiante")
+    @JsonManagedReference
+    private List<Calificación>calificaciónes;
+
+
 
     public Estudiante() {
     }
 
-    public Estudiante(Integer idEstudiante, Integer calificación, Date fechaNacimiento, String direccion) {
+    public Estudiante(Integer idEstudiante, Integer grado, Date fechaNacimiento, String direccion) {
         this.idEstudiante = idEstudiante;
-        this.calificación = calificación;
+        this.grado = grado;
         FechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
     }
@@ -26,12 +52,12 @@ public class Estudiante {
         this.idEstudiante = idEstudiante;
     }
 
-    public Integer getCalificación() {
-        return calificación;
+    public Integer getGrado() {
+        return grado;
     }
 
-    public void setCalificación(Integer calificación) {
-        this.calificación = calificación;
+    public void setGrado(Integer grado) {
+        this.grado = grado;
     }
 
     public Date getFechaNacimiento() {

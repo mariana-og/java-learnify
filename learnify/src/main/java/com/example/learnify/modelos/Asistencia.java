@@ -1,12 +1,33 @@
 package com.example.learnify.modelos;
 
 import com.example.learnify.ayudas.TipoAsistencia;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "asistencias")
 public class Asistencia {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_asistencia")
     private Integer idAsistencia;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_estudiante", referencedColumnName = "id_estudiante")
+    @JsonBackReference
+    private Estudiante estudiante;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_curso", referencedColumnName = "id_curso")
+    @JsonBackReference
+    private Curso curso;
+
+    @Column(name = "fecha", nullable = false)
     private Date Fecha;
+
+    @Column(name = "estado", nullable = false)
     private TipoAsistencia tipoAsistencia;
 
     public Asistencia() {
